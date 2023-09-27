@@ -147,6 +147,15 @@ CLASSIFIER_DEP_BLOCK = """
 </dependency>
 """.strip()
 
+TYPED_DEP_BLOCK = """
+<dependency>
+  <groupId>{0}</groupId>
+  <artifactId>{1}</artifactId>
+  <version>{3}</version>
+  <type>{2}</type>
+</dependency>
+""".strip()
+
 def _pom_file(ctx):
     mvn_deps = depset(
         [],
@@ -162,6 +171,8 @@ def _pom_file(ctx):
             template = DEP_BLOCK
         elif len(parts) == 5:
             template = CLASSIFIER_DEP_BLOCK
+        elif len (parts) == 4:
+            template = TYPED_DEP_BLOCK
         else:
             fail("Unknown dependency format: %s" % dep)
 
